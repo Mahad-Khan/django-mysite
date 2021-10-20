@@ -1,7 +1,8 @@
 from django.urls import path
-
 from . import views
 
+app_name = 'polls' #How does one make it so that Django knows \
+                   #which app view to create for a url when using the {% url %} template tag?
 urlpatterns = [
     # ex: /polls/
     path('', views.index, name='index'),

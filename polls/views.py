@@ -1,8 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import loader
 
 from .models import Question
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # def index(request):
 #     latest_question_list = Question.objects.all()
@@ -20,12 +20,21 @@ def index(request):
     return render(request, 'polls/index.html', context)
 
 
-# detail(request=<HttpRequest object>, question_id=34)
+# # detail(request=<HttpRequest object>, question_id=34)
+# def detail(request, question_id):
+#     try:
+#         print(Question.objects.get(pk=2))
+#         question = Question.objects.get(pk=question_id)
+#     except Question.DoesNotExist:
+#         raise Http404("Question does not exist")
+#     return render(request, 'polls/detail.html', {'question': question})
+
+
+# The get_object_or_404() function takes a Django model as its first argument and an\
+# arbitrary number of keyword arguments, which it passes to the get() function of the model’s manager.\
+#  It raises Http404 if the object doesn’t exis
 def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
+    question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question})
 
 
